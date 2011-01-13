@@ -1,0 +1,41 @@
+Followed http://gmarik.info/blog/2010/05/02/tracking-dotfiles-with-git
+to store my dotfiles in git.
+
+How to install dotfiles (may overwrite your existing files so be
+careful!)
+
+git clone --bare git@github.com:jbrownbridge/dotfiles.git ~/dotfiles.git
+#setup bash alias
+alias .G="git --git-dir=$HOME/dotfiles.git --work-tree=$HOME/"
+  
+# commit original files in orig branch for backup
+# WARNING: backup what's going to be overwritten
+.G status -s -uno   # review changelist
+.G checkout -b original_files 
+.G commit -a  -m 'original files'
+.G checkout master 
+
+
+To get meld to work with git you need to add the following to your .gitconfig
+file:
+
+[diff]
+	external = ~/bin/diff.py
+
+To get vim to work correctly you will probably need to create a .backup
+directory in you home directory:
+  mkdir -p ~/.backup
+
+To get flymake to work correctly you will need to add the following to your
+project Makefile (make sure tabs/spacing is correct):
+
+.PHONY: check-syntax
+check-syntax:
+  $(CXX) $(INCLUDES) -Wall -fsyntax-only $(CHK_SOURCES)
+
+I have only tested flymake with c++ so ymmv. CHK_SOURCES is populated by
+the following file (set to current file being edited in vim %s directive):
+  .vim/after/ftplugin/c/flymake.vim
+
+Flymake will only execute on write and may cause your editor to lock for
+several seconds depending on how long make takes.

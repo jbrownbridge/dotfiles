@@ -12,6 +12,7 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 export HISTCONTROL=ignoreboth
 
 export HISTSIZE=10000
+HISTFILESIZE=10000
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -112,8 +113,10 @@ alias hons='cd /home/jason/Masters/CUDA_Course'
 alias masters='cd /home/jason/Masters'
 alias src='cd $CROWD_SRC'
 alias exp='cd /home/jason/Masters/Implementation/Experiments'
+alias assign='cd /home/jason/Masters/Compilers/Assignments/2010/'
 alias a='sudo aptitude'
-
+alias go='gnome-open'
+alias .G="git --work-tree=$HOME/ --git-dir=$HOME/dotfiles.git"
 alias scpresume="rsync -vrtPz --inplace --rsh=ssh"
 
 export PATH=$PATH:/usr/local/cuda/bin:/usr/local/cuda/cudaprof/bin:~/bin:~/tau/i386_linux/bin:~/pdtoolkit/linux/bin
@@ -171,5 +174,3 @@ function prompt_func() {
   fi
 }
 PROMPT_COMMAND=prompt_func
-
-alias .G="git --work-tree=$HOME/ --git-dir=$HOME/dotfiles.git"
